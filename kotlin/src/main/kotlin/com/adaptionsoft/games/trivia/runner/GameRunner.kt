@@ -9,12 +9,9 @@ object GameRunner {
     fun run(): Game {
         val aGame = Game()
 
-        aGame.add("Chet")
-        aGame.add("Pat")
-        aGame.add("Sue")
+        listOf("Chet", "Pat", "Sue").forEach { aGame.add(it) }
 
         do {
-
             aGame.roll(Die.roll())
 
             if (HawkingsOracle.isAnswerCorrect()) {
@@ -22,8 +19,6 @@ object GameRunner {
             } else {
                 GameRunner.notAWinner = aGame.wasCorrectlyAnswered()
             }
-
-
         } while (GameRunner.notAWinner)
 
         return aGame
