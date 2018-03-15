@@ -1,5 +1,6 @@
 package com.adaptionsoft.games.uglytrivia
 
+import com.adaptionsoft.games.trivia.runner.Printer
 import java.util.*
 
 class Game {
@@ -15,7 +16,7 @@ class Game {
 
     var currentPlayer = 0
     var isGettingOutOfPenaltyBox: Boolean = false
-
+    
     init {
         for (i in 0..49) {
             popQuestions.addLast("Pop Question " + i)
@@ -41,8 +42,8 @@ class Game {
         purses[howManyPlayers()] = 0
         inPenaltyBox[howManyPlayers()] = false
 
-        println(playerName + " was added")
-        println("They are player number " + players.size)
+        Printer.println(playerName + " was added")
+        Printer.println("They are player number " + players.size)
         return true
     }
 
@@ -51,24 +52,24 @@ class Game {
     }
 
     fun roll(roll: Int) {
-        println(players[currentPlayer].toString() + " is the current player")
-        println("They have rolled a " + roll)
+        Printer.println(players[currentPlayer].toString() + " is the current player")
+        Printer.println("They have rolled a " + roll)
 
         if (inPenaltyBox[currentPlayer]) {
             if (roll % 2 != 0) {
                 isGettingOutOfPenaltyBox = true
 
-                println(players[currentPlayer].toString() + " is getting out of the penalty box")
+                Printer.println(players[currentPlayer].toString() + " is getting out of the penalty box")
                 places[currentPlayer] = places[currentPlayer] + roll
                 if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12
 
-                println(players[currentPlayer].toString()
+                Printer.println(players[currentPlayer].toString()
                         + "'s new location is "
                         + places[currentPlayer])
-                println("The category is " + currentCategory())
+                Printer.println("The category is " + currentCategory())
                 askQuestion()
             } else {
-                println(players[currentPlayer].toString() + " is not getting out of the penalty box")
+                Printer.println(players[currentPlayer].toString() + " is not getting out of the penalty box")
                 isGettingOutOfPenaltyBox = false
             }
 
@@ -77,10 +78,10 @@ class Game {
             places[currentPlayer] = places[currentPlayer] + roll
             if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12
 
-            println(players[currentPlayer].toString()
+            Printer.println(players[currentPlayer].toString()
                     + "'s new location is "
                     + places[currentPlayer])
-            println("The category is " + currentCategory())
+            Printer.println("The category is " + currentCategory())
             askQuestion()
         }
 
@@ -88,13 +89,13 @@ class Game {
 
     private fun askQuestion() {
         if (currentCategory() === "Pop")
-            println(popQuestions.removeFirst())
+            Printer.println(popQuestions.removeFirst())
         if (currentCategory() === "Science")
-            println(scienceQuestions.removeFirst())
+            Printer.println(scienceQuestions.removeFirst())
         if (currentCategory() === "Sports")
-            println(sportsQuestions.removeFirst())
+            Printer.println(sportsQuestions.removeFirst())
         if (currentCategory() === "Rock")
-            println(rockQuestions.removeFirst())
+            Printer.println(rockQuestions.removeFirst())
     }
 
     private fun currentCategory(): String {
@@ -113,9 +114,9 @@ class Game {
     fun wasCorrectlyAnswered(): Boolean {
         if (inPenaltyBox[currentPlayer]) {
             if (isGettingOutOfPenaltyBox) {
-                println("Answer was correct!!!!")
+                Printer.println("Answer was correct!!!!")
                 purses[currentPlayer]++
-                println(players[currentPlayer].toString()
+                Printer.println(players[currentPlayer].toString()
                         + " now has "
                         + purses[currentPlayer]
                         + " Gold Coins.")
@@ -134,9 +135,9 @@ class Game {
 
         } else {
 
-            println("Answer was correct!!!!")
+            Printer.println("Answer was correct!!!!")
             purses[currentPlayer]++
-            println(players[currentPlayer].toString()
+            Printer.println(players[currentPlayer].toString()
                     + " now has "
                     + purses[currentPlayer]
                     + " Gold Coins.")
@@ -150,8 +151,8 @@ class Game {
     }
 
     fun wrongAnswer(): Boolean {
-        println("Question was incorrectly answered")
-        println(players[currentPlayer].toString() + " was sent to the penalty box")
+        Printer.println("Question was incorrectly answered")
+        Printer.println(players[currentPlayer].toString() + " was sent to the penalty box")
         inPenaltyBox[currentPlayer] = true
 
         currentPlayer++
