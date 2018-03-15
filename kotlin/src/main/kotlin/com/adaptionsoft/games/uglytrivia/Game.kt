@@ -134,7 +134,7 @@ class Game {
 
         } else {
 
-            println("Answer was corrent!!!!")
+            println("Answer was correct!!!!")
             purses[currentPlayer]++
             println(players[currentPlayer].toString()
                     + " now has "
